@@ -1,9 +1,17 @@
 from fastapi import FastAPI
+from routes.clients.users import users
+from routes.clients.countries import countries
 
-app = FastAPI()
+tags_metadata = [
+    {"name": "Clients: Get methods", "description": "Get all information user, countries, customers"},
+    {"name": "Clients: Post methods", "description": "Create users, countries, customers "},
+    {"name": "Clients: Delete methods", "description": "Delete users, countries, customers"},
+    {"name": "Clients: Put methods", "description": "Update users, countries, customers"},
+]
+
+app = FastAPI(openapi_tags=tags_metadata)
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello E-Commerce API"}
+app.include_router(users)
+app.include_router(countries)
 
